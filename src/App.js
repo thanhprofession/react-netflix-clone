@@ -1,28 +1,56 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import Header from './Header';
+import SelectionRow from './SelectionRow';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+class App extends React.Component {
+
+  state = {
+    categories: [
+      {
+        title: "Top Picks for Joshua",
+        dataKey: "topPicks"
+      },
+      {
+        title: "Trending Now",
+        dataKey: "trendingNow"
+      },
+      {
+        title: "Because you watched Narcos",
+        dataKey: "becauseWatched"
+      },
+      {
+        title: "New Releases",
+        dataKey: "newReleases"
+      },
+    ]
   }
+
+  render() {
+    let netflixRows = this.state.categories.map((element, i) => (
+      <MDBRow>
+        <MDBCol size="12">
+          <SelectionRow
+            key={i}
+            title={element.title}
+            dataKey={element.dataKey} 
+          />
+        </MDBCol>
+      </MDBRow>
+    ));
+    return (
+      <MDBContainer fluid>
+        <MDBRow>
+          <MDBCol size="12">
+            <Header />
+          </MDBCol>
+        </MDBRow>
+        {netflixRows}
+      </MDBContainer>
+    )
+  }
+
 }
 
 export default App;
